@@ -13,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
-      contents: write
-      packages: write
-      pull-requests: write
-      security-events: write
+      contents: write # Needed for git push
+      packages: write # Needed for mvn deploy to GitHub Packages
+      pull-requests: write # Not strictly needed for this workflow unless creating PRs
+      security-events: write # Not strictly needed for this workflow
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -62,11 +62,22 @@ jobs:
 
       - name: Set Project Version
         run: |
-          cd common-events
-          mvn versions:set -DnewVersion=${{ steps.extract_version.outputs.version }}
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Set the version in the pom.xml and transport-platform-common-events.version property
+          mvn versions:set-property \
+          -Dproperty=transport-platform-common-events.version \
+          -DnewVersion=${{ steps.extract_version.outputs.version }} \
+          -DgenerateBackupPoms=false
           git add pom.xml
+          
+          cd common-events
+          mvn versions:set -DnewVersion=${{ steps.extract_version.outputs.version }}
+          git add pom.xml
+          
+          cd ..
+          
           git commit -m "Set project version to ${{ steps.extract_version.outputs.version }}"
           git push --force origin HEAD:refs/heads/master
 

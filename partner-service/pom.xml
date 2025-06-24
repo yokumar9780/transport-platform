@@ -19,7 +19,7 @@
         <dependency>
             <groupId>com.transport.platform</groupId>
             <artifactId>common-events</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${transport-platform-common-events.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springdoc</groupId>
@@ -149,6 +149,10 @@
                         </exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
