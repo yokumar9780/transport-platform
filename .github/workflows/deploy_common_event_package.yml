@@ -76,7 +76,9 @@ jobs:
           cat pom.xml
 
       - name: Deploy to GitHub Packages
-        run: mvn deploy -DskipTests
+        run: |
+          cd common-events
+          mvn deploy -DskipTests
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Built-in GitHub token
           # The token must have the write:packages and read:packages permissions.
