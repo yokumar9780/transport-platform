@@ -87,7 +87,7 @@
         <repository>
             <id>github</id>
             <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/yokumar9780/common-events</url>
+            <url>https://maven.pkg.github.com/yokumar9780/transport-platform</url>
         </repository>
     </distributionManagement>
 </project>
