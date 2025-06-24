@@ -21,7 +21,7 @@
         <caffeine.version>3.2.1</caffeine.version>
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
         <spring-boot.version>3.5.3</spring-boot.version>
-        <transport-platform-common.version>0.4.1-SNAPSHOT</transport-platform-common.version>
+        <transport-platform-common.version>0.5.1-SNAPSHOT</transport-platform-common.version>
     </properties>
     <repositories>
         <repository>
