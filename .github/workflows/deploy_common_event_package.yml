@@ -1,0 +1,82 @@
+name: Deploy common-events package to GitHub
+
+on:
+  push:
+    tags:
+      - 'v*.*.*' # e.g., v1.0.0
+    paths:
+      - common-events/**
+  workflow_dispatch:
+  # Allows manual triggering of the workflow
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+      packages: write
+      pull-requests: write
+      security-events: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: maven
+
+      - name: Configure Maven settings
+        run: |
+          mkdir -p ~/.m2
+          cat > ~/.m2/settings.xml <<EOF
+          <settings>
+            <servers>
+              <server>
+                <id>github</id>
+                <username>\${env.GITHUB_ACTOR}</username>
+                <password>\${env.GITHUB_TOKEN}</password>
+              </server>
+            </servers>
+          </settings>
+          EOF
+
+      - name: Verify GitHub Token Permissions
+        run: |
+          echo "Checking GitHub token permissions..."
+          curl -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+               -H "Accept: application/vnd.github.v3+json" \
+               "https://api.github.com/user/packages?package_type=maven"
+
+      - name: Extract Version from Tag
+        id: extract_version
+        run: echo "::set-output name=version::${GITHUB_REF#refs/tags/v}"
+
+      - name: Debug Current Branch or Tag
+        run: |
+          echo "Current ref: ${{ github.ref }}"
+          echo "Current ref name: ${{ github.ref_name }}"
+          git branch --show-current
+
+      - name: Set Project Version
+        run: |
+          cd common-events
+          mvn versions:set -DnewVersion=${{ steps.extract_version.outputs.version }}
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add pom.xml
+          git commit -m "Set project version to ${{ steps.extract_version.outputs.version }}"
+          git push --force origin HEAD:refs/heads/master
+
+      - name: Verify Updated pom.xml
+        run: |
+          cd common-events
+          cat pom.xml
+
+      - name: Deploy to GitHub Packages
+        run: mvn deploy -DskipTests
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Built-in GitHub token
+          # The token must have the write:packages and read:packages permissions.

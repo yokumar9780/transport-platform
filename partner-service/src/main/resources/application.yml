@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: partner-service
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  threads:
+    virtual:
+      enabled: true
+  data:
+    mongodb:
+      database: ${DATABASE:${spring.application.name}}
+      uri: ${DB_URL:mongodb://localhost:27017/${spring.data.mongodb.database}?retryWrites=true&w=majority}
+      auto-index-creation: true
+      authentication-database: ${DATABASE:${spring.application.name}}
+    redis:
+      port: ${REDIS_DB_PORT:6379}
+      host: ${REDIS_DB_HOST:localhost}
+      password: ${REDIS_DB_PASSWORD:devPass}
+      timeout: 60000
+      client-type: jedis
+  cache:
+    type: redis
+    redis:
+      time-to-live: 21600 # 6 hours
+      cache-null-values: false
+
+  jackson:
+    default-property-inclusion: non_null
+  docker:
+    compose:
+      lifecycle-management: start_only
+server:
+  port: 9000
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
