@@ -1,5 +1,6 @@
 package com.transport.platform.partnerservice.service.user;
 
+import com.transport.platform.common.exception.NotFoundException;
 import com.transport.platform.partnerservice.model.PartnerUser;
 import com.transport.platform.partnerservice.repository.PartnerUserRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,8 @@ public class PartnerUserQueryHandler {
 
     @Cacheable(value = "partnerUser", key = "#id")
     public PartnerUser getById(String id) {
-        return repo.findById(id).orElse(null);
+        return repo.findById(id).
+                orElseThrow(() -> new NotFoundException("Buyer not found"));
     }
 
     @Cacheable(value = "partnerUsers")

@@ -1,5 +1,6 @@
 package com.transport.platform.partnerservice.service.partner;
 
+import com.transport.platform.common.exception.NotFoundException;
 import com.transport.platform.partnerservice.model.Partner;
 import com.transport.platform.partnerservice.repository.PartnerRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,8 @@ public class PartnerQueryHandler {
 
     @Cacheable(value = "partner", key = "#id")
     public Partner getById(String id) {
-        return repo.findById(id).orElse(null);
+        return repo.findById(id)
+                .orElseThrow(() -> new NotFoundException("Partner not found"));
     }
 
     @Cacheable(value = "partnersByOrg", key = "#orgId")

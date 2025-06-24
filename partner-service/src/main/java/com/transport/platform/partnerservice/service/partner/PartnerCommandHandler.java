@@ -1,5 +1,7 @@
 package com.transport.platform.partnerservice.service.partner;
 
+import com.transport.platform.common.exception.BadRequestException;
+import com.transport.platform.common.exception.NotFoundException;
 import com.transport.platform.common.partnerservice.command.partner.*;
 import com.transport.platform.common.partnerservice.model.Action;
 import com.transport.platform.partnerservice.mapper.PartnersMapper;
@@ -35,7 +37,7 @@ public class PartnerCommandHandler {
             "partners"}, allEntries = true)
     public Buyer updateBuyerPartner(String id, UpdateBuyerCommand command) {
         Buyer existingBuyer = (Buyer) partnerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Buyer not found"));
+                .orElseThrow(() -> new NotFoundException("Buyer not found"));
         partnerMapper.map(existingBuyer, command);
         Buyer updatedBuyer = partnerRepository.save(existingBuyer);
         partnerEventPublisher.publishPartnerEvent(updatedBuyer, Action.UPDATE);
@@ -59,7 +61,7 @@ public class PartnerCommandHandler {
             "partners"}, allEntries = true)
     public Carrier updateCarrierPartner(String id, UpdateCarrierCommand command) {
         Carrier existingCarrier = (Carrier) partnerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Carrier not found"));
+                .orElseThrow(() -> new NotFoundException("Carrier not found"));
         partnerMapper.map(existingCarrier, command);
         Carrier updatedCarrier = partnerRepository.save(existingCarrier);
         partnerEventPublisher.publishPartnerEvent(updatedCarrier, Action.UPDATE);
@@ -95,7 +97,7 @@ public class PartnerCommandHandler {
             "partners"}, allEntries = true)
     public void deletePartner(String id) {
         Partner existing = partnerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Partner not found"));
+                .orElseThrow(() -> new BadRequestException("Partner not found"));
         partnerRepository.deleteById(id);
         partnerEventPublisher.publishPartnerEvent(existing, Action.DELETE);
     }

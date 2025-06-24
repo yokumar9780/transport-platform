@@ -1,5 +1,7 @@
 package com.transport.platform.partnerservice.service.user;
 
+import com.transport.platform.common.exception.BadRequestException;
+import com.transport.platform.common.exception.NotFoundException;
 import com.transport.platform.common.partnerservice.command.user.CreatePartnerUserCommand;
 import com.transport.platform.common.partnerservice.command.user.UpdatePartnerUserCommand;
 import com.transport.platform.common.partnerservice.model.Action;
@@ -34,7 +36,7 @@ public class PartnerUserCommandHandler {
             "partnerUsers"}, allEntries = true)
     public PartnerUser updateUser(String userId, UpdatePartnerUserCommand command) {
         PartnerUser existing = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new NotFoundException("User not found"));
         PartnerUser updatedPartnerUser = partnerUsersMapper.map(existing, command);
         PartnerUser savePartnerUser = userRepository.save(updatedPartnerUser);
         partnerUserEventPublisher.publishPartnerUserEvent(savePartnerUser, Action.UPDATE);
@@ -46,7 +48,7 @@ public class PartnerUserCommandHandler {
             "partnerUsers"}, allEntries = true)
     public void deleteUser(String userId) {
         PartnerUser existing = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new NotFoundException("User not found"));
         userRepository.deleteById(userId);
         partnerUserEventPublisher.publishPartnerUserEvent(existing, Action.DELETE);
     }
@@ -56,7 +58,7 @@ public class PartnerUserCommandHandler {
             "partnerUsers"}, allEntries = true)
     public PartnerUser disableUser(String userId) {
         PartnerUser user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new BadRequestException("User not found"));
         user.setActive(false);
         PartnerUser savePartnerUser = userRepository.save(user);
         partnerUserEventPublisher.publishPartnerUserEvent(savePartnerUser, Action.UPDATE);
@@ -68,7 +70,7 @@ public class PartnerUserCommandHandler {
             "partnerUsers"}, allEntries = true)
     public PartnerUser enableUser(String userId) {
         PartnerUser user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new NotFoundException("User not found"));
         user.setActive(true);
         PartnerUser savePartnerUser = userRepository.save(user);
         partnerUserEventPublisher.publishPartnerUserEvent(savePartnerUser, Action.UPDATE);
