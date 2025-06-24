@@ -1,8 +1,8 @@
 package com.transport.platform.partnerservice.service.user;
 
-import com.transport.platform.commonevents.partnerservice.command.user.CreatePartnerUserCommand;
-import com.transport.platform.commonevents.partnerservice.command.user.UpdatePartnerUserCommand;
-import com.transport.platform.commonevents.partnerservice.model.Action;
+import com.transport.platform.common.partnerservice.command.user.CreatePartnerUserCommand;
+import com.transport.platform.common.partnerservice.command.user.UpdatePartnerUserCommand;
+import com.transport.platform.common.partnerservice.model.Action;
 import com.transport.platform.partnerservice.mapper.PartnerUsersMapper;
 import com.transport.platform.partnerservice.model.PartnerUser;
 import com.transport.platform.partnerservice.repository.PartnerUserRepository;

@@ -1,15 +1,15 @@
 package com.transport.platform.partnerservice.bootstrap;
 
 
-import com.transport.platform.commonevents.partnerservice.command.partner.CreateBuyerCommand;
-import com.transport.platform.commonevents.partnerservice.command.partner.CreateCarrierCommand;
-import com.transport.platform.commonevents.partnerservice.command.partner.CreateFinancialAdminCommand;
-import com.transport.platform.commonevents.partnerservice.command.partner.CreateOperationalAdminCommand;
-import com.transport.platform.commonevents.partnerservice.command.user.CreatePartnerUserCommand;
-import com.transport.platform.commonevents.partnerservice.model.Address;
-import com.transport.platform.commonevents.partnerservice.model.Contact;
-import com.transport.platform.commonevents.partnerservice.model.Organization;
-import com.transport.platform.commonevents.partnerservice.model.PartnerType;
+import com.transport.platform.common.partnerservice.command.partner.CreateBuyerCommand;
+import com.transport.platform.common.partnerservice.command.partner.CreateCarrierCommand;
+import com.transport.platform.common.partnerservice.command.partner.CreateFinancialAdminCommand;
+import com.transport.platform.common.partnerservice.command.partner.CreateOperationalAdminCommand;
+import com.transport.platform.common.partnerservice.command.user.CreatePartnerUserCommand;
+import com.transport.platform.common.partnerservice.model.Address;
+import com.transport.platform.common.partnerservice.model.Contact;
+import com.transport.platform.common.partnerservice.model.Organization;
+import com.transport.platform.common.partnerservice.model.PartnerType;
 import com.transport.platform.partnerservice.model.Partner;
 import com.transport.platform.partnerservice.repository.PartnerRepository;
 import com.transport.platform.partnerservice.repository.PartnerUserRepository;

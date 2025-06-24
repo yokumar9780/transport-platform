@@ -1,7 +1,7 @@
 package com.transport.platform.partnerservice.service.partner;
 
-import com.transport.platform.commonevents.partnerservice.command.partner.*;
-import com.transport.platform.commonevents.partnerservice.model.Action;
+import com.transport.platform.common.partnerservice.command.partner.*;
+import com.transport.platform.common.partnerservice.model.Action;
 import com.transport.platform.partnerservice.mapper.PartnersMapper;
 import com.transport.platform.partnerservice.model.*;
 import com.transport.platform.partnerservice.repository.PartnerRepository;

@@ -1,6 +1,6 @@
 package com.transport.platform.partnerservice.controller;
 
-import com.transport.platform.commonevents.partnerservice.command.partner.*;
+import com.transport.platform.common.partnerservice.command.partner.*;
 import com.transport.platform.partnerservice.model.Buyer;
 import com.transport.platform.partnerservice.model.Carrier;
 import com.transport.platform.partnerservice.model.Partner;

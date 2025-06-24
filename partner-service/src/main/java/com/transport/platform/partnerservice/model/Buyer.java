@@ -1,7 +1,7 @@
 package com.transport.platform.partnerservice.model;
 
 
-import com.transport.platform.commonevents.partnerservice.model.PartnerType;
+import com.transport.platform.common.partnerservice.model.PartnerType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;

@@ -1,7 +1,7 @@
 package com.transport.platform.partnerservice.service.partner;
 
-import com.transport.platform.commonevents.partnerservice.model.Action;
-import com.transport.platform.commonevents.partnerservice.model.EventEnvelope;
+import com.transport.platform.common.partnerservice.model.Action;
+import com.transport.platform.common.partnerservice.model.EventEnvelope;
 import com.transport.platform.partnerservice.config.rabbit.RabbitPartnerConfig;
 import com.transport.platform.partnerservice.model.Partner;
 import lombok.RequiredArgsConstructor;

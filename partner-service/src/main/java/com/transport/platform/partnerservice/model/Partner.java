@@ -1,9 +1,9 @@
 package com.transport.platform.partnerservice.model;
 
-import com.transport.platform.commonevents.partnerservice.model.Address;
-import com.transport.platform.commonevents.partnerservice.model.Contact;
-import com.transport.platform.commonevents.partnerservice.model.Organization;
-import com.transport.platform.commonevents.partnerservice.model.PartnerType;
+import com.transport.platform.common.partnerservice.model.Address;
+import com.transport.platform.common.partnerservice.model.Contact;
+import com.transport.platform.common.partnerservice.model.Organization;
+import com.transport.platform.common.partnerservice.model.PartnerType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
