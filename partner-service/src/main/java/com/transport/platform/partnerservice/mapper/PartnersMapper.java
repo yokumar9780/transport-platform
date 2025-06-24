@@ -17,6 +17,7 @@ public interface PartnersMapper {
     @Mapping(target = "id", ignore = true)
     Buyer map(CreateBuyerCommand source);
 
+    @Mapping(target = "type", constant = "BUYER")
     @Mapping(target = "id", ignore = true)
     void map(@MappingTarget Buyer target, UpdateBuyerCommand source);
 
@@ -24,6 +25,7 @@ public interface PartnersMapper {
     @Mapping(target = "id", ignore = true)
     Carrier map(CreateCarrierCommand command);
 
+    @Mapping(target = "type", constant = "CARRIER")
     @Mapping(target = "id", ignore = true)
     void map(@MappingTarget Carrier target, UpdateCarrierCommand source);
 

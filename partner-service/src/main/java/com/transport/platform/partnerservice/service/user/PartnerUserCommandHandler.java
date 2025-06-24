@@ -7,6 +7,7 @@ import com.transport.platform.partnerservice.mapper.PartnerUsersMapper;
 import com.transport.platform.partnerservice.model.PartnerUser;
 import com.transport.platform.partnerservice.repository.PartnerUserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,6 +18,9 @@ public class PartnerUserCommandHandler {
     private final PartnerUsersMapper partnerUsersMapper;
     private final PartnerUserEventPublisher partnerUserEventPublisher;
 
+    @CacheEvict(cacheNames = {
+            "partnerUser",
+            "partnerUsers"}, allEntries = true)
     public PartnerUser createPartnerUser(CreatePartnerUserCommand command) {
         PartnerUser partnerUser = partnerUsersMapper.map(command);
         PartnerUser savedPartnerUser = userRepository.save(partnerUser);
@@ -25,6 +29,9 @@ public class PartnerUserCommandHandler {
 
     }
 
+    @CacheEvict(cacheNames = {
+            "partnerUser",
+            "partnerUsers"}, allEntries = true)
     public PartnerUser updateUser(String userId, UpdatePartnerUserCommand command) {
         PartnerUser existing = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -34,6 +41,9 @@ public class PartnerUserCommandHandler {
         return savePartnerUser;
     }
 
+    @CacheEvict(cacheNames = {
+            "partnerUser",
+            "partnerUsers"}, allEntries = true)
     public void deleteUser(String userId) {
         PartnerUser existing = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -41,6 +51,9 @@ public class PartnerUserCommandHandler {
         partnerUserEventPublisher.publishPartnerUserEvent(existing, Action.DELETE);
     }
 
+    @CacheEvict(cacheNames = {
+            "partnerUser",
+            "partnerUsers"}, allEntries = true)
     public PartnerUser disableUser(String userId) {
         PartnerUser user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -50,6 +63,9 @@ public class PartnerUserCommandHandler {
         return savePartnerUser;
     }
 
+    @CacheEvict(cacheNames = {
+            "partnerUser",
+            "partnerUsers"}, allEntries = true)
     public PartnerUser enableUser(String userId) {
         PartnerUser user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));

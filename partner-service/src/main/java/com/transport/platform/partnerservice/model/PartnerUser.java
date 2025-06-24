@@ -8,6 +8,7 @@ import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
 import java.util.Set;
 
 @Document(collection = "users")
@@ -15,7 +16,7 @@ import java.util.Set;
 @SuperBuilder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class PartnerUser {
+public class PartnerUser implements Serializable {
     @Id
     private String id;
 
